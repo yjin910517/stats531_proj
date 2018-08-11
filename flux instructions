@@ -1,0 +1,36 @@
+ # File Transfer
+ flux-xfer.arc-ts.umich.edu
+
+ # Login
+ flux-login.arc-ts.umich.edu
+
+
+ qsub ./stats531/runR.pbs
+ qstat -u jinyue
+
+
+# check flux allocation
+mdiag -u jinyue
+
+
+# Install R packages
+install.packages("pomp",repos="https://cran.mtu.edu/")
+
+
+# Module
+module load R/3.4.1
+module list			-- Show loaded modules
+module load name		-- Load module name for use
+module avail			-- Show all available modules
+module avail name		-- Show versions of module name
+module key string		-- Search for string in module descrip
+module spider string	-- Search for string in all module doc
+module unload name	-- Unload module name
+module use path		-- Add path to module search path
+module					-- List all options
+
+
+
+# Check Allocatuion
+
+showq -w acct=stats531w18_flux -r | grep stats531 | awk 'BEGIN{print "uniqname  jobid     core util"} {printf("%-8.8s  %8d  %s\n",  $7, $1, int($10*$4/10)/10 " of " $10)}' | sort -n -k 3
